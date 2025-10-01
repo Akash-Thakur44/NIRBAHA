@@ -4,7 +4,6 @@
 **Ever wondered if technology and education can work hand in hand to catch struggling students before they slip through the cracks?**  
 With NIRBAHA, you get more than just analytics: you get a complete, user-centric platform built to identify at-risk students, track interventions, and empower educators to make a real difference – all in one elegant dashboard!
 
-> ![NIRBAHA Dashboard](Screenshot-19.jpg)
 
 ## ✨ What Makes NIRBAHA Special?
 

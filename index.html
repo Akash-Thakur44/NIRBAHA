@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIRBAHA - Student Success Prediction & Counseling System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>NIRBAHA</span>
+                </div>
+                <nav class="nav">
+                    <a href="#" class="nav-link active" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                    <a href="#" class="nav-link" data-section="upload">
+                        <i class="fas fa-upload"></i> Upload Data
+                    </a>
+                    <a href="#" class="nav-link" data-section="students">
+                        <i class="fas fa-users"></i> Students
+                    </a>
+                    <a href="#" class="nav-link" data-section="models">
+                        <i class="fas fa-brain"></i> ML Models
+                    </a>
+                    <a href="#" class="nav-link" data-section="interventions">
+                        <i class="fas fa-user-md"></i> Interventions
+                    </a>
+                    <a href="#" class="nav-link" data-section="alerts">
+                        <i class="fas fa-bell"></i> Alerts
+                        <span class="alert-badge" id="alert-count">2</span>
+                    </a>
+                </nav>
+                <div class="user-profile">
+                    <div class="profile-dropdown">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Dr. Meera Gupta</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <!-- Dashboard Section -->
+        <section id="dashboard-section" class="section active">
+            <div class="container">
+                <div class="page-header">
+                    <div class="header-content-main">
+                        <div class="header-text">
+                            <h1>NIRBAHA Student Success Dashboard</h1>
+                            <p class="page-subtitle">Comprehensive student success prediction and early intervention system for academic excellence</p>
+                        </div>
+                        <div class="header-image">
+                            <img src="https://pplx-res.cloudinary.com/image/upload/v1754749013/pplx_project_search_images/f37df1aa459a8c01855f8d6fcd0ab496a56fbb2a.png" alt="Students celebrating success" class="success-image">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Metrics Cards -->
+                <div class="metrics-grid">
+                    <div class="metric-card total">
+                        <div class="metric-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3 class="metric-value" id="total-students">5</h3>
+                            <p class="metric-label">Total Students</p>
+                        </div>
+                    </div>
+                    <div class="metric-card high-risk">
+                        <div class="metric-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3 class="metric-value" id="high-risk-count">2</h3>
+                            <p class="metric-label">Risk Alerts</p>
+                        </div>
+                    </div>
+                    <div class="metric-card sessions">
+                        <div class="metric-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3 class="metric-value" id="pending-sessions">1</h3>
+                            <p class="metric-label">Pending Sessions</p>
+                        </div>
+                    </div>
+                    <div class="metric-card interventions">
+                        <div class="metric-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3 class="metric-value" id="active-interventions">4</h3>
+                            <p class="metric-label">Active Interventions</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Student Overview Grid -->
+                <div class="dashboard-content">
+                    <div class="students-overview">
+                        <div class="panel-header">
+                            <h2>Student Risk Assessment Overview</h2>
+                            <div class="filter-controls">
+                                <select id="risk-filter" class="form-control">
+                                    <option value="all">All Risk Levels</option>
+                                    <option value="high">High Risk</option>
+                                    <option value="medium">Medium Risk</option>
+                                    <option value="low">Low Risk</option>
+                                </select>
+                                <select id="grade-filter" class="form-control">
+                                    <option value="all">All Grades</option>
+                                    <option value="Grade 6">Grade 6</option>
+                                    <option value="Grade 7">Grade 7</option>
+                                    <option value="Grade 8">Grade 8</option>
+                                    <option value="Grade 9">Grade 9</option>
+                                    <option value="Grade 10">Grade 10</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="students-grid" id="students-grid">
+                            <!-- Student cards will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="activity-panel">
+                        <h3>Recent Activity</h3>
+                        <div class="activity-list" id="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon urgent">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-text">High-risk alert triggered for Vikram Reddy</p>
+                                    <span class="activity-time">2 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon success">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-text">Counseling session completed with Ananya Singh</p>
+                                    <span class="activity-time">5 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon info">
+                                    <i class="fas fa-upload"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-text">Student records updated via bulk upload</p>
+                                    <span class="activity-time">1 day ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h3>Quick Actions</h3>
+                    <div class="actions-grid">
+                        <button class="btn btn--primary action-btn" data-section="upload">
+                            <i class="fas fa-upload"></i>
+                            <span>Upload Student Data</span>
+                        </button>
+                        <button class="btn btn--secondary action-btn" data-section="models">
+                            <i class="fas fa-brain"></i>
+                            <span>Run ML Predictions</span>
+                        </button>
+                        <button class="btn btn--outline action-btn" data-section="interventions">
+                            <i class="fas fa-calendar-plus"></i>
+                            <span>Schedule Session</span>
+                        </button>
+                        <button class="btn btn--outline action-btn" onclick="exportReports()">
+                            <i class="fas fa-download"></i>
+                            <span>Export Reports</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Data Section -->
+        <section id="upload-section" class="section">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Document Upload & Data Management</h1>
+                    <p class="page-subtitle">Import student records, academic data, and attendance information</p>
+                </div>
+
+                <div class="upload-grid">
+                    <!-- File Upload Area -->
+                    <div class="upload-panel">
+                        <h3>Upload Student Documents</h3>
+                        <div class="upload-area" id="upload-area">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <p class="upload-text">Drag and drop files here or click to browse</p>
+                            <p class="upload-subtext">Supports CSV, XLSX, JSON formats</p>
+                            <input type="file" id="file-input" multiple accept=".csv,.xlsx,.json" class="hidden">
+                        </div>
+                        
+                        <div class="file-list" id="file-list">
+                            <!-- Uploaded files will appear here -->
+                        </div>
+                        
+                        <div class="upload-actions">
+                            <button class="btn btn--primary" id="process-files" disabled>
+                                <i class="fas fa-cogs"></i> Process Files
+                            </button>
+                            <button class="btn btn--outline" onclick="clearFiles()">
+                                <i class="fas fa-trash"></i> Clear All
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Templates & Guidelines -->
+                    <div class="templates-panel">
+                        <h3>Data Templates & Guidelines</h3>
+                        <div class="template-list">
+                            <div class="template-item">
+                                <div class="template-icon">
+                                    <i class="fas fa-user-graduate"></i>
+                                </div>
+                                <div class="template-content">
+                                    <h4>Student Records Template</h4>
+                                    <p>Student ID, Name, Grade, Contact Info, Family Background</p>
+                                    <button class="btn btn--sm btn--outline" onclick="downloadTemplate('student_records')">
+                                        <i class="fas fa-download"></i> Download CSV
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="template-item">
+                                <div class="template-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="template-content">
+                                    <h4>Academic Data Template</h4>
+                                    <p>Grades, Test Scores, Subject Performance, GPA</p>
+                                    <button class="btn btn--sm btn--outline" onclick="downloadTemplate('academic_data')">
+                                        <i class="fas fa-download"></i> Download CSV
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="template-item">
+                                <div class="template-icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <div class="template-content">
+                                    <h4>Attendance Data Template</h4>
+                                    <p>Daily Attendance, Absences, Late Arrivals</p>
+                                    <button class="btn btn--sm btn--outline" onclick="downloadTemplate('attendance_data')">
+                                        <i class="fas fa-download"></i> Download CSV
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Validation & Preview -->
+                <div class="validation-panel" id="validation-panel" style="display: none;">
+                    <h3>Data Validation & Preview</h3>
+                    <div class="validation-content">
+                        <div class="validation-summary" id="validation-summary">
+                            <!-- Validation results will appear here -->
+                        </div>
+                        <div class="data-preview" id="data-preview">
+                            <!-- Data preview table will appear here -->
+                        </div>
+                        <div class="validation-actions">
+                            <button class="btn btn--primary" id="import-data" disabled>
+                                <i class="fas fa-check"></i> Import Data
+                            </button>
+                            <button class="btn btn--secondary" onclick="editMappings()">
+                                <i class="fas fa-edit"></i> Edit Mappings
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Students Section -->
+        <section id="students-section" class="section">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Student Records Management</h1>
+                    <div class="header-actions">
+                        <input type="text" id="search-input" class="form-control" placeholder="Search students by name, ID, or grade...">
+                        <button class="btn btn--primary" onclick="addNewStudent()">
+                            <i class="fas fa-plus"></i> Add Student
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="students-table-container">
+                        <table class="students-table" id="students-table">
+                            <thead>
+                                <tr>
+                                    <th data-sort="name">Name <i class="fas fa-sort"></i></th>
+                                    <th data-sort="grade">Grade <i class="fas fa-sort"></i></th>
+                                    <th data-sort="gpa">GPA <i class="fas fa-sort"></i></th>
+                                    <th data-sort="attendance_rate">Attendance <i class="fas fa-sort"></i></th>
+                                    <th data-sort="risk_level">Risk Level <i class="fas fa-sort"></i></th>
+                                    <th data-sort="risk_score">Risk Score <i class="fas fa-sort"></i></th>
+                                    <th>Parent Contact</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="students-table-body">
+                                <!-- Table rows will be populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ML Models Section -->
+        <section id="models-section" class="section">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Machine Learning Model Evaluation</h1>
+                    <p class="page-subtitle">Compare model performance and run predictions for student risk assessment</p>
+                </div>
+
+                <div class="models-grid">
+                    <!-- Model Performance Cards -->
+                    <div class="model-card active">
+                        <div class="model-header">
+                            <h3>Ensemble Model</h3>
+                            <span class="status-badge active">Active</span>
+                        </div>
+                        <div class="model-metrics">
+                            <div class="metric">
+                                <span class="metric-label">Accuracy</span>
+                                <span class="metric-value">95%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Precision</span>
+                                <span class="metric-value">93%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Recall</span>
+                                <span class="metric-value">92%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">F1-Score</span>
+                                <span class="metric-value">92%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="model-card">
+                        <div class="model-header">
+                            <h3>Random Forest</h3>
+                            <span class="status-badge active">Active</span>
+                        </div>
+                        <div class="model-metrics">
+                            <div class="metric">
+                                <span class="metric-label">Accuracy</span>
+                                <span class="metric-value">91%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Precision</span>
+                                <span class="metric-value">89%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Recall</span>
+                                <span class="metric-value">88%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">F1-Score</span>
+                                <span class="metric-value">88%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="model-card">
+                        <div class="model-header">
+                            <h3>Neural Network</h3>
+                            <span class="status-badge active">Active</span>
+                        </div>
+                        <div class="model-metrics">
+                            <div class="metric">
+                                <span class="metric-label">Accuracy</span>
+                                <span class="metric-value">93%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Precision</span>
+                                <span class="metric-value">91%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Recall</span>
+                                <span class="metric-value">90%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">F1-Score</span>
+                                <span class="metric-value">90%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="model-card">
+                        <div class="model-header">
+                            <h3>Logistic Regression</h3>
+                            <span class="status-badge active">Active</span>
+                        </div>
+                        <div class="model-metrics">
+                            <div class="metric">
+                                <span class="metric-label">Accuracy</span>
+                                <span class="metric-value">87%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Precision</span>
+                                <span class="metric-value">85%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Recall</span>
+                                <span class="metric-value">82%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">F1-Score</span>
+                                <span class="metric-value">83%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prediction Interface -->
+                <div class="prediction-panel">
+                    <h3>Run Predictions</h3>
+                    <div class="prediction-content">
+                        <div class="prediction-options">
+                            <div class="option-group">
+                                <label class="form-label">Select Model</label>
+                                <select id="model-select" class="form-control">
+                                    <option value="ensemble">Ensemble Model (Recommended)</option>
+                                    <option value="random_forest">Random Forest</option>
+                                    <option value="neural_network">Neural Network</option>
+                                    <option value="logistic_regression">Logistic Regression</option>
+                                </select>
+                            </div>
+                            <div class="option-group">
+                                <label class="form-label">Prediction Type</label>
+                                <div class="radio-group">
+                                    <label class="radio-option">
+                                        <input type="radio" name="prediction-type" value="individual" checked>
+                                        <span>Individual Student</span>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="prediction-type" value="batch">
+                                        <span>Batch Prediction</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="prediction-actions">
+                            <button class="btn btn--primary" onclick="runPredictions()">
+                                <i class="fas fa-play"></i> Run Predictions
+                            </button>
+                            <button class="btn btn--outline" onclick="exportPredictions()">
+                                <i class="fas fa-download"></i> Export Results
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prediction Results -->
+                <div class="results-panel" id="prediction-results" style="display: none;">
+                    <h3>Prediction Results</h3>
+                    <div class="results-content" id="results-content">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interventions Section -->
+        <section id="interventions-section" class="section">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Intervention Management</h1>
+                    <p class="page-subtitle">Schedule counseling sessions, track progress, and manage student interventions</p>
+                </div>
+
+                <div class="interventions-layout">
+                    <!-- Session Scheduler -->
+                    <div class="scheduler-panel">
+                        <div class="panel-header">
+                            <h3>Schedule New Session</h3>
+                            <img src="https://pplx-res.cloudinary.com/image/upload/v1755442847/pplx_project_search_images/d191f3b17dfe1984ecf2a1abfa8ac4a75d81716b.png" alt="Counseling session" class="counseling-image">
+                        </div>
+                        
+                        <form class="session-form" id="session-form">
+                            <div class="form-group">
+                                <label class="form-label">Student</label>
+                                <select id="session-student" class="form-control" required>
+                                    <option value="">Select student...</option>
+                                    <option value="104">Ananya Singh - Grade 7A (High Risk)</option>
+                                    <option value="105">Vikram Reddy - Grade 6B (High Risk)</option>
+                                    <option value="103">Rahul Kumar - Grade 8C (Medium Risk)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Session Type</label>
+                                <select id="session-type" class="form-control" required>
+                                    <option value="">Select type...</option>
+                                    <option value="Individual Counseling">Individual Counseling</option>
+                                    <option value="Group Counseling">Group Counseling</option>
+                                    <option value="Family Conference">Family Conference</option>
+                                    <option value="Academic Support">Academic Support</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Counselor</label>
+                                <select id="session-counselor" class="form-control" required>
+                                    <option value="">Select counselor...</option>
+                                    <option value="Dr. Meera Gupta">Dr. Meera Gupta</option>
+                                    <option value="Ms. Priya Joshi">Ms. Priya Joshi</option>
+                                    <option value="Prof. Raj Singh">Prof. Raj Singh</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Date</label>
+                                    <input type="date" id="session-date" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Time</label>
+                                    <input type="time" id="session-time" class="form-control" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Duration (minutes)</label>
+                                <select id="session-duration" class="form-control" required>
+                                    <option value="30">30 minutes</option>
+                                    <option value="45" selected>45 minutes</option>
+                                    <option value="60">60 minutes</option>
+                                    <option value="90">90 minutes</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Initial Notes (Optional)</label>
+                                <textarea id="session-notes" class="form-control" rows="3" placeholder="Brief description of session purpose or concerns..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn--primary btn--full-width">
+                                <i class="fas fa-calendar-plus"></i> Schedule Session
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Active Sessions -->
+                    <div class="sessions-panel">
+                        <h3>Session Management</h3>
+                        
+                        <div class="session-tabs">
+                            <button class="tab-btn active" data-tab="scheduled">Scheduled</button>
+                            <button class="tab-btn" data-tab="completed">Completed</button>
+                            <button class="tab-btn" data-tab="follow-up">Follow-up</button>
+                        </div>
+                        
+                        <div class="tab-content active" id="scheduled-tab">
+                            <div class="session-list">
+                                <div class="session-item upcoming">
+                                    <div class="session-header">
+                                        <h4>Rahul Kumar - Academic Support</h4>
+                                        <span class="session-status scheduled">Scheduled</span>
+                                    </div>
+                                    <div class="session-details">
+                                        <p><i class="fas fa-user-md"></i> Ms. Priya Joshi</p>
+                                        <p><i class="fas fa-calendar"></i> October 2, 2025 at 11:30 AM</p>
+                                        <p><i class="fas fa-clock"></i> 30 minutes</p>
+                                    </div>
+                                    <div class="session-actions">
+                                        <button class="btn btn--sm btn--primary" onclick="startSession('CS003')">
+                                            <i class="fas fa-play"></i> Start
+                                        </button>
+                                        <button class="btn btn--sm btn--outline" onclick="editSession('CS003')">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-content" id="completed-tab">
+                            <div class="session-list">
+                                <div class="session-item completed">
+                                    <div class="session-header">
+                                        <h4>Ananya Singh - Individual Counseling</h4>
+                                        <span class="session-status completed">Completed</span>
+                                    </div>
+                                    <div class="session-details">
+                                        <p><i class="fas fa-user-md"></i> Dr. Meera Gupta</p>
+                                        <p><i class="fas fa-calendar"></i> September 28, 2025</p>
+                                        <p><i class="fas fa-clock"></i> 45 minutes</p>
+                                        <p class="session-notes">Student showed signs of anxiety about academic performance. Discussed coping strategies.</p>
+                                    </div>
+                                    <div class="session-actions">
+                                        <button class="btn btn--sm btn--secondary" onclick="viewSessionNotes('CS001')">
+                                            <i class="fas fa-eye"></i> View Notes
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="session-item completed">
+                                    <div class="session-header">
+                                        <h4>Vikram Reddy - Family Conference</h4>
+                                        <span class="session-status completed">Completed</span>
+                                    </div>
+                                    <div class="session-details">
+                                        <p><i class="fas fa-user-md"></i> Dr. Meera Gupta</p>
+                                        <p><i class="fas fa-calendar"></i> September 30, 2025</p>
+                                        <p><i class="fas fa-clock"></i> 60 minutes</p>
+                                        <p class="session-notes">Met with student and parents. Discussed attendance issues and home support.</p>
+                                    </div>
+                                    <div class="session-actions">
+                                        <button class="btn btn--sm btn--secondary" onclick="viewSessionNotes('CS002')">
+                                            <i class="fas fa-eye"></i> View Notes
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-content" id="follow-up-tab">
+                            <div class="session-list">
+                                <div class="session-item follow-up">
+                                    <div class="session-header">
+                                        <h4>Ananya Singh - Follow-up Required</h4>
+                                        <span class="session-status follow-up">Follow-up</span>
+                                    </div>
+                                    <div class="session-details">
+                                        <p><i class="fas fa-calendar"></i> Next session: October 5, 2025</p>
+                                        <p class="session-notes">Monitor anxiety levels and academic progress</p>
+                                    </div>
+                                    <div class="session-actions">
+                                        <button class="btn btn--sm btn--primary" onclick="scheduleFollowUp('CS001')">
+                                            <i class="fas fa-calendar-plus"></i> Schedule
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="session-item follow-up">
+                                    <div class="session-header">
+                                        <h4>Vikram Reddy - Follow-up Required</h4>
+                                        <span class="session-status follow-up">Follow-up</span>
+                                    </div>
+                                    <div class="session-details">
+                                        <p><i class="fas fa-calendar"></i> Next session: October 7, 2025</p>
+                                        <p class="session-notes">Check attendance improvement and family support</p>
+                                    </div>
+                                    <div class="session-actions">
+                                        <button class="btn btn--sm btn--primary" onclick="scheduleFollowUp('CS002')">
+                                            <i class="fas fa-calendar-plus"></i> Schedule
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alerts Section -->
+        <section id="alerts-section" class="section">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Alert & Notification Management</h1>
+                    <p class="page-subtitle">Monitor critical alerts and manage automated notifications for student interventions</p>
+                </div>
+
+                <div class="alerts-dashboard">
+                    <div class="alerts-grid">
+                        <!-- Urgent Alerts -->
+                        <div class="alert-panel urgent">
+                            <div class="panel-header">
+                                <h3><i class="fas fa-exclamation-triangle"></i> Urgent Interventions</h3>
+                                <span class="alert-count">2</span>
+                            </div>
+                            <div class="alert-list" id="urgent-alerts">
+                                <div class="alert-item urgent active">
+                                    <div class="alert-student">
+                                        <h4>Vikram Reddy</h4>
+                                        <span class="student-grade">Grade 6B</span>
+                                    </div>
+                                    <div class="alert-message">
+                                        <p>Student has missed 35 days of school. Immediate intervention required.</p>
+                                        <div class="alert-meta">
+                                            <span class="alert-date">October 1, 2025</span>
+                                            <span class="alert-priority high">High Priority</span>
+                                        </div>
+                                    </div>
+                                    <div class="alert-actions">
+                                        <button class="btn btn--sm btn--primary" onclick="assignIntervention(105)">
+                                            <i class="fas fa-user-md"></i> Assign Counselor
+                                        </button>
+                                        <button class="btn btn--sm btn--secondary" onclick="contactParents(105)">
+                                            <i class="fas fa-phone"></i> Contact Parents
+                                        </button>
+                                        <button class="btn btn--sm btn--outline" onclick="resolveAlert('ALT001')">
+                                            <i class="fas fa-check"></i> Resolve
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="alert-item urgent in-progress">
+                                    <div class="alert-student">
+                                        <h4>Ananya Singh</h4>
+                                        <span class="student-grade">Grade 7A</span>
+                                    </div>
+                                    <div class="alert-message">
+                                        <p>GPA dropped below 2.0. Academic support needed.</p>
+                                        <div class="alert-meta">
+                                            <span class="alert-date">September 30, 2025</span>
+                                            <span class="alert-priority high">High Priority</span>
+                                            <span class="assigned-to">Assigned to: Ms. Priya Joshi</span>
+                                        </div>
+                                    </div>
+                                    <div class="alert-actions">
+                                        <span class="action-status in-progress">
+                                            <i class="fas fa-clock"></i> Tutoring sessions arranged
+                                        </span>
+                                        <button class="btn btn--sm btn--outline" onclick="updateAlert('ALT002')">
+                                            <i class="fas fa-edit"></i> Update
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Medium Priority Alerts -->
+                        <div class="alert-panel medium">
+                            <div class="panel-header">
+                                <h3><i class="fas fa-exclamation-circle"></i> Monitor Closely</h3>
+                                <span class="alert-count">1</span>
+                            </div>
+                            <div class="alert-list" id="medium-alerts">
+                                <div class="alert-item medium active">
+                                    <div class="alert-student">
+                                        <h4>Rahul Kumar</h4>
+                                        <span class="student-grade">Grade 8C</span>
+                                    </div>
+                                    <div class="alert-message">
+                                        <p>Attendance rate below threshold. Monitor closely.</p>
+                                        <div class="alert-meta">
+                                            <span class="alert-date">September 29, 2025</span>
+                                            <span class="alert-priority medium">Medium Priority</span>
+                                            <span class="assigned-to">Assigned to: Ms. Priya Joshi</span>
+                                        </div>
+                                    </div>
+                                    <div class="alert-actions">
+                                        <span class="action-status completed">
+                                            <i class="fas fa-check"></i> Parent notification sent
+                                        </span>
+                                        <button class="btn btn--sm btn--outline" onclick="scheduleSession(103)">
+                                            <i class="fas fa-calendar"></i> Schedule Session
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notification Settings -->
+                        <div class="alert-panel settings">
+                            <div class="panel-header">
+                                <h3><i class="fas fa-cog"></i> Alert Settings</h3>
+                            </div>
+                            <div class="settings-content">
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Attendance Threshold</h4>
+                                        <p>Alert when attendance drops below</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <input type="number" value="85" class="form-control" min="0" max="100">
+                                        <span>%</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>GPA Threshold</h4>
+                                        <p>Alert when GPA falls below</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <input type="number" value="2.0" class="form-control" min="0" max="4" step="0.1">
+                                    </div>
+                                </div>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Auto-Assign Counselors</h4>
+                                        <p>Automatically assign based on risk level</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <label class="toggle">
+                                            <input type="checkbox" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>Parent Notifications</h4>
+                                        <p>Send SMS/Email to parents automatically</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <label class="toggle">
+                                            <input type="checkbox" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn btn--primary btn--full-width" onclick="saveAlertSettings()">
+                                    <i class="fas fa-save"></i> Save Settings
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Student Detail Modal -->
+    <div class="modal hidden" id="student-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-student-name">Student Profile</h2>
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Student details will be populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Session Details Modal -->
+    <div class="modal hidden" id="session-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="session-modal-title">Session Details</h2>
+                <button class="modal-close" onclick="closeSessionModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="session-modal-body">
+                <!-- Session details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

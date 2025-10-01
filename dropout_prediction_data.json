@@ -1,0 +1,131 @@
+{
+  "students": [
+    {
+      "id": 213,
+      "name": "Abby Buckley",
+      "gender": "Female",
+      "grade": "Grade 5",
+      "average_marks": 88.4,
+      "gpa": 3.7,
+      "participation_rate": 80.0,
+      "days_absent": 2,
+      "attendance_rate": 93.33,
+      "risk_level": "low",
+      "risk_score": 0.15
+    },
+    {
+      "id": 279,
+      "name": "Abigail Pineda",
+      "gender": "Female",
+      "grade": "Grade 2",
+      "average_marks": 69.4,
+      "gpa": 2.0,
+      "participation_rate": 80.0,
+      "days_absent": 2,
+      "attendance_rate": 93.33,
+      "risk_level": "medium",
+      "risk_score": 0.45
+    },
+    {
+      "id": 236,
+      "name": "Ada Ochoa",
+      "gender": "Female",
+      "grade": "Grade 1",
+      "average_marks": 87.6,
+      "gpa": 3.7,
+      "participation_rate": 80.0,
+      "days_absent": 3,
+      "attendance_rate": 90.0,
+      "risk_level": "low",
+      "risk_score": 0.25
+    },
+    {
+      "id": 301,
+      "name": "John Smith",
+      "gender": "Male",
+      "grade": "Grade 3",
+      "average_marks": 55.2,
+      "gpa": 1.5,
+      "participation_rate": 60.0,
+      "days_absent": 8,
+      "attendance_rate": 73.33,
+      "risk_level": "high",
+      "risk_score": 0.85
+    },
+    {
+      "id": 302,
+      "name": "Sarah Johnson",
+      "gender": "Female",
+      "grade": "Grade 4",
+      "average_marks": 45.8,
+      "gpa": 1.2,
+      "participation_rate": 45.0,
+      "days_absent": 12,
+      "attendance_rate": 60.0,
+      "risk_level": "high",
+      "risk_score": 0.92
+    }
+  ],
+  "subjects": {
+    "English": {
+      "avg_score": 84.05,
+      "participation": 89
+    },
+    "Maths": {
+      "avg_score": 81.86,
+      "participation": 87.33
+    },
+    "Science": {
+      "avg_score": 79.36,
+      "participation": 82.33
+    },
+    "Phys. Ed": {
+      "avg_score": 84.76,
+      "participation": 85.33
+    },
+    "Arts": {
+      "avg_score": 78.25,
+      "participation": 87.67
+    }
+  },
+  "risk_config": {
+    "attendance_threshold": 75,
+    "gpa_threshold": 2.0,
+    "participation_threshold": 70,
+    "weights": {
+      "attendance": 0.4,
+      "academic": 0.35,
+      "engagement": 0.25
+    }
+  },
+  "interventions": {
+    "high": [
+      "Immediate counselor meeting required",
+      "Contact parents/guardians urgently",
+      "Develop personalized learning plan",
+      "Assign peer mentor",
+      "Weekly check-ins with academic advisor"
+    ],
+    "medium": [
+      "Schedule counseling session within 1 week",
+      "Notify parents via SMS/email",
+      "Monitor closely for 2 weeks",
+      "Provide additional tutoring resources",
+      "Group study sessions"
+    ],
+    "low": [
+      "Regular monitoring",
+      "Positive reinforcement activities",
+      "Optional tutoring available",
+      "Peer support group invitation"
+    ]
+  },
+  "dashboard_stats": {
+    "total_students": 5,
+    "high_risk": 2,
+    "medium_risk": 1,
+    "low_risk": 2,
+    "avg_attendance": 81.998,
+    "avg_gpa": 2.42
+  }
+}
